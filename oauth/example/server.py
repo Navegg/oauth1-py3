@@ -2,6 +2,7 @@
 The MIT License
 
 Copyright (c) 2007 Leah Culver
+Copyright (c) 2017 William Marquardt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-import urllib
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import urllib.request, urllib.parse, urllib.error
 
 import oauth.oauth as oauth
 
@@ -101,7 +102,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_error(401, str(err.message))
         # return the authenticate header
         header = oauth.build_authenticate_header(realm=REALM)
-        for k, v in header.iteritems():
+        for k, v in header.items():
             self.send_header(k, v) 
 
     def do_GET(self):
@@ -131,7 +132,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 # return the token
                 self.wfile.write(token.to_string())
-            except oauth.OAuthError, err:
+            except oauth.OAuthError as err:
                 self.send_oauth_error(err)
             return
 
@@ -148,7 +149,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 # return the callback url (to show server has it)
                 self.wfile.write(token.get_callback_url())
-            except oauth.OAuthError, err:
+            except oauth.OAuthError as err:
                 self.send_oauth_error(err)
             return
 
@@ -162,7 +163,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 # return the token
                 self.wfile.write(token.to_string())
-            except oauth.OAuthError, err:
+            except oauth.OAuthError as err:
                 self.send_oauth_error(err)
             return
 
@@ -176,7 +177,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 # return the extra parameters - just for something to return
                 self.wfile.write(str(params))
-            except oauth.OAuthError, err:
+            except oauth.OAuthError as err:
                 self.send_oauth_error(err)
             return
 
@@ -186,7 +187,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 def main():
     try:
         server = HTTPServer(('', 8080), RequestHandler)
-        print 'Test server running...'
+        print('Test server running...')
         server.serve_forever()
     except KeyboardInterrupt:
         server.socket.close()
