@@ -29,7 +29,7 @@ import time
 import random
 import urllib.parse
 import hmac
-import binascii
+import base64
 import hashlib
 
 VERSION = '1.0' # Hi Blaine!
@@ -634,8 +634,7 @@ class OAuthSignatureMethod_HMAC_SHA1(OAuthSignatureMethod):
         hashed = hmac.new(key, raw, hashlib.sha1)
 
         # Calculate the digest base 64.
-        return binascii.b2a_base64(hashed.digest())[:-1]
-
+        return base64.encodebytes(hashed.digest()).decode('utf-8')[:-1]
 
 class OAuthSignatureMethod_PLAINTEXT(OAuthSignatureMethod):
 
