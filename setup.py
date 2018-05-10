@@ -23,7 +23,7 @@
 from setuptools import setup, find_packages
 
 setup(name="oauth",
-      version="1.0.1",
+      version="1.0.2",
       description="Library for OAuth version 1.0a. (Python 3)",
       author="William Marquardt",
       author_email="williammqt@gmail.com",
