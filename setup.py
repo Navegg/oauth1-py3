@@ -22,12 +22,15 @@
 
 from setuptools import setup, find_packages
 
-setup(name="oauth",
+setup(name="oauth1-py3",
       version="1.0.2",
       description="Library for OAuth version 1.0a. (Python 3)",
       author="William Marquardt",
       author_email="williammqt@gmail.com",
       url="https://github.com/Navegg/oauth1-py3",
       packages = find_packages(),
+      classifiers=[
+        "Programming Language :: Python :: 3",
+      ]
       license = "MIT License",
       zip_safe = True)
