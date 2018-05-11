@@ -31,6 +31,6 @@ setup(name="oauth1-py3",
       packages = find_packages(),
       classifiers=[
         "Programming Language :: Python :: 3",
-      ]
+      ],
       license = "MIT License",
       zip_safe = True)
